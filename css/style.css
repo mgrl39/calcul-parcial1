@@ -360,3 +360,64 @@ footer { text-align: center; color: var(--text-dim); padding: 30px 0; font-size:
   .exam-timer { top: 100px; }
   .exercise-inputs.multi { grid-template-columns: 1fr; }
 }
+
+/* ---------- Llistes de classe ---------- */
+.list-nav { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
+.list-chip { background: var(--bg-soft); border: 1px solid var(--card-border); color: var(--text); border-radius: 12px; padding: 10px 12px; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+.list-chip:hover { border-color: var(--accent); }
+.list-chip.active { border-color: var(--accent); background: rgba(124,155,255,0.14); }
+.list-chip.hot { border-color: rgba(251,191,36,0.55); }
+.list-chip.hot.active { background: rgba(251,191,36,0.14); border-color: var(--warn); }
+.list-chip .stars { color: var(--warn); font-size: 0.8rem; letter-spacing: 1px; }
+.list-meter { font-size: 0.78rem; color: var(--text-dim); }
+.list-head.hot { border-color: rgba(251,191,36,0.55); }
+.list-head .list-meter { max-width: 260px; margin-top: 8px; }
+.list-exam-link { background: var(--bg-soft); border-left: 3px solid var(--warn); padding: 10px 14px; border-radius: 8px; }
+.list-item { padding: 14px 18px; margin-bottom: 12px; }
+.list-item.done { opacity: 0.72; border-color: rgba(74,222,128,0.45); }
+.list-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.list-num { font-weight: 700; color: var(--accent); }
+.done-toggle { color: var(--text-dim); font-size: 0.85rem; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.done-toggle input { accent-color: var(--good); width: 16px; height: 16px; }
+.list-q { line-height: 1.7; margin-bottom: 8px; overflow-x: auto; }
+.list-check { align-items: center; margin: 8px 0; }
+.list-check .field-wrap { max-width: 340px; }
+.list-fb { font-size: 0.88rem; }
+.list-col { font-size: 0.82rem; white-space: nowrap; }
+
+/* ---------- Pla de 3 dies ---------- */
+.tab-btn.tab-plan { color: var(--good); }
+.tab-btn.tab-plan.active { color: var(--good); border-bottom-color: var(--good); }
+.plan-meter { max-width: 360px; margin-top: 10px; }
+table.rank-table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 0.92rem; }
+.rank-table th, .rank-table td { border-bottom: 1px solid var(--card-border); padding: 10px 8px; vertical-align: top; text-align: left; }
+.rank-table th { color: var(--text-dim); font-weight: 600; font-size: 0.82rem; }
+.rank-n { color: var(--text-dim); font-weight: 700; }
+.tier-badge { display: inline-block; min-width: 26px; text-align: center; font-weight: 800; border-radius: 6px; padding: 3px 6px; font-size: 0.85rem; }
+.tier-badge.tS { background: var(--bad); color: #1a0505; }
+.tier-badge.tA { background: var(--warn); color: #1a1200; }
+.tier-badge.tB { background: var(--accent); color: #0f1222; }
+.tier-badge.tC { background: var(--card-border); color: var(--text-dim); }
+.tier-S td:nth-child(3) b { color: #ffd1d1; }
+.dots, .rank-years { display: grid; grid-template-columns: repeat(10, 18px); gap: 2px; }
+.dot { justify-self: center; }
+.rank-years span { font-size: 0.55rem; letter-spacing: -0.3px; color: var(--text-dim); text-align: center; font-weight: 400; }
+.dot { width: 12px; height: 12px; border-radius: 3px; background: var(--bg-soft); border: 1px solid var(--card-border); }
+.dot.on { background: var(--good); border-color: var(--good); }
+.dots-cell { white-space: nowrap; }
+.link-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.link-chip { background: var(--bg-soft); border: 1px solid var(--card-border); color: var(--accent); border-radius: 999px; padding: 3px 10px; font-size: 0.78rem; cursor: pointer; }
+.link-chip:hover { border-color: var(--accent); }
+.days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 18px; }
+.days-grid .card { margin-bottom: 0; }
+.day-card.complete { border-color: var(--good); }
+.day-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.day-head h3 { margin: 2px 0 0; }
+.day-label { color: var(--good); font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
+.day-count { background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 999px; padding: 3px 10px; font-size: 0.82rem; color: var(--text-dim); }
+.plan-task { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--card-border); line-height: 1.5; font-size: 0.93rem; }
+.plan-task.done .plan-body > div:first-child { opacity: 0.55; text-decoration: line-through; }
+.plan-check input { accent-color: var(--good); width: 18px; height: 18px; margin-top: 2px; cursor: pointer; }
+.plan-body { flex: 1; min-width: 0; }
+.plan-time { display: inline-block; background: rgba(74,222,128,0.12); color: var(--good); border-radius: 6px; padding: 0 6px; font-size: 0.78rem; font-weight: 700; margin-right: 4px; }
+.error-list li { margin-bottom: 8px; line-height: 1.5; }

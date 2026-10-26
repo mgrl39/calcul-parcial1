@@ -737,6 +737,42 @@ const Gen = (function () {
     };
   }
 
+
+  /* ---------------- TAYLOR: GRAU NECESSARI PER A UN ERROR DONAT (Llista 5, 3–5) ---------------- */
+  function taylorDegree() {
+    const fam = choice([
+      { name: "\\sin", f: Math.sin, coeff: k => k % 2 ? Math.pow(-1, (k - 1) / 2) / fact(k) : 0, M: 1, Mtex: "|f^{(n+1)}|\\le1" },
+      { name: "\\cos", f: Math.cos, coeff: k => k % 2 ? 0 : Math.pow(-1, k / 2) / fact(k), M: 1, Mtex: "|f^{(n+1)}|\\le1" },
+      { name: "e^", f: Math.exp, coeff: k => 1 / fact(k), M: 3, Mtex: "e^{\\xi}\\lt e\\lt3" }
+    ]);
+    const x = choice([0.1, 0.2, 0.3, 0.4, 0.5]);
+    const k = choice([3, 4, 5]);
+    const tol = Math.pow(10, -k);
+    let n = 0;
+    while (fam.M * Math.pow(x, n + 1) / fact(n + 1) >= tol) n++;
+    let P = 0;
+    for (let i = 0; i <= n; i++) P += fam.coeff(i) * Math.pow(x, i);
+    const xs = String(x).replace(".", "{,}");
+    const valTex = fam.name === "e^" ? `e^{${xs}}` : `${fam.name}(${xs})`;
+    const nChk = (s) => {
+      let v; try { v = MathParser.compile(s)(0); } catch (e) { return { ok: false, error: e.message }; }
+      return { ok: Math.round(v) === v && v === n };
+    };
+    nChk.value = n;
+    return {
+      kind: "taylorDegree",
+      promptLatex: `Obteniu, amb la fórmula de Taylor en $a=0$, una aproximació de $${valTex}$ amb error més petit que $10^{-${k}}$. Quin és el grau $n$ mínim (segons la fita de Lagrange${fam.M === 3 ? " amb $e\\lt3$" : ""}) i quina aproximació s'obté?`,
+      instructions: "Dona el grau n mínim i el valor aproximat P_n (amb prou decimals).",
+      fields: [
+        { label: "n =", checker: nChk },
+        { label: "P_n ≈", checker: num0(P, tol) }
+      ],
+      solutionLatex: `|R_n(${x})|\\le\\dfrac{M\\,(${x})^{n+1}}{(n+1)!},\\ ${fam.Mtex}.\\ ` +
+        `n=${n - 1}:\\ ${(fam.M * Math.pow(x, n) / fact(n)).toExponential(2)}\\ \\text{✗};\\ n=${n}:\\ ${(fam.M * Math.pow(x, n + 1) / fact(n + 1)).toExponential(2)}\\lt10^{-${k}}\\ \\checkmark.\\ P_{${n}}(${x})\\approx${fmtNum(P, 7)}`,
+      hint: "Prova n = 1, 2, 3... fins que M·x^(n+1)/(n+1)! sigui més petit que la tolerància. Després avalua P_n."
+    };
+  }
+
   /* ---------------- LÍMITS TIPUS 1^∞, 0^0 (Llista 4, Abril 2024 2c) ---------------- */
   const powLimitTemplates = [
     () => { const a = ri(1, 3); return { tex: `\\lim_{x\\to0}\\left(1+\\sin(${a === 1 ? "" : a}x^{2})\\right)^{\\frac{1}{1-\\cos x}}`, v: Math.exp(2 * a), sol: `e^{\\lim \\frac{\\ln(1+\\sin ${a === 1 ? "" : a}x^2)}{1-\\cos x}}=e^{${2 * a}}` }; },
@@ -763,6 +799,6 @@ const Gen = (function () {
   return {
     derivative, limit, equation, taylorValue, taylorError, interpolation, asymptote,
     expQuadratic, inequality, tangent, continuity, logDerivative, newton, absExtrema,
-    functionStudy, taylorProblem, powLimit
+    functionStudy, taylorProblem, powLimit, taylorDegree
   };
 })();

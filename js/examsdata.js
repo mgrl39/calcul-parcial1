@@ -213,6 +213,40 @@ const REAL_EXAMS = [
     ]
   },
   {
+    id: "2022",
+    title: "Primer Parcial — 2022 (correcció del professor)",
+    tag: "RECENT",
+    format: "Test + 2 problemes (estudi de funció; límit 1^∞ i nombre d'arrels amb paràmetre).",
+    problems: [
+      {
+        title: "Problema 1",
+        statement: "Sigui $f(x)=\\dfrac{x}{1+x^2}$.",
+        parts: [
+          { q: "(a) Intervals de creixement i decreixement; extrems relatius.", sol: "$f'(x)=\\dfrac{1-x^2}{(1+x^2)^2}$: decreixent a $(-\\infty,-1)\\cup(1,\\infty)$, creixent a $(-1,1)$. Mínim $(-1,-\\frac12)$, màxim $(1,\\frac12)$ (i són absoluts)." },
+          { q: "(b) Concavitat, convexitat i punts d'inflexió.", sol: "$f''(x)=\\dfrac{2x(x^2-3)}{(1+x^2)^3}$: còncava a $(-\\infty,-\\sqrt3)\\cup(0,\\sqrt3)$, convexa a $(-\\sqrt3,0)\\cup(\\sqrt3,\\infty)$. Inflexions a $x=0,\\pm\\sqrt3$." },
+          { q: "(c) Esbós i quins valors pren $f$.", sol: "AH $y=0$, funció senar. Recorregut $[-\\frac12,\\frac12]$.<div class='plot' data-f='x/(1+x^2)' data-xr='-6,6' data-yr='-0.8,0.8' data-lines='0' data-pts='-1,-0.5;1,0.5;0,0;1.732,0.433;-1.732,-0.433'></div>" }
+        ]
+      },
+      {
+        title: "Problema 2",
+        parts: [
+          { q: "(a) Calculeu $\\displaystyle\\lim_{x\\to\\infty}\\left(\\frac{2x+3}{2x-5}\\right)^{x+7}$.", sol: "$1^\\infty$: $\\frac{2x+3}{2x-5}=1+\\frac{8}{2x-5}$, i $(x+7)\\cdot\\frac{8}{2x-5}\\to4$ ⇒ $e^4$." },
+          { q: "(b) Considerem $\\frac{x^5}{5}-\\frac{x^3}{3}+A=0$. (i) Demostreu que per $|A|\\lt\\frac{2}{15}$ té exactament 3 arrels. (ii) Què passa si $|A|=\\frac2{15}$?", sol: "$f'=x^2(x^2-1)$: creixent a $x\\lt-1$ i $x>1$, decreixent a $(-1,1)$ ($x=0$ no és extrem). Màx $f(-1)=\\frac2{15}+A$, mín $f(1)=-\\frac2{15}+A$. Amb $f\\to\\pm\\infty$: si $f(-1)>0$ i $f(1)\\lt0$ (és a dir $|A|\\lt\\frac2{15}$) hi ha un zero a cada tram de monotonia ⇒ exactament 3 (Bolzano + monotonia).<br>(ii) Si $A=\\frac2{15}$, $f(1)=0$ (arrel doble) ⇒ 2 arrels. Si $A=-\\frac2{15}$, $f(-1)=0$ ⇒ 2 arrels." }
+        ]
+      },
+      {
+        title: "Test (preguntes de la correcció)",
+        parts: [
+          { q: "Quants zeros té $f(x)=x+\\cos x-\\frac32$ a $[0,\\frac\\pi2]$?", sol: "$f(0)=-\\frac12\\lt0$, $f(\\frac\\pi2)=\\frac{\\pi-3}{2}>0$ ⇒ Bolzano. $f'=1-\\sin x>0$ a $(0,\\frac\\pi2)$ ⇒ <b>exactament un</b>." },
+          { q: "$\\displaystyle\\lim_{x\\to0}\\frac{e^x-1}{1-\\sqrt{1-x}}$", sol: "L'Hôpital: $\\frac{e^x}{\\frac{1}{2\\sqrt{1-x}}}\\to2$." },
+          { q: "Solucions de $\\ln|x+2|-2\\ln|x|=0$.", sol: "$|x+2|=x^2$. Si $x+2>0$: $x^2-x-2=0\\Rightarrow x=2,\\ x=-1$. Si $x+2\\lt0$: $x^2+x+2=0$ sense solució. Solucions $x=2$ i $x=-1$." },
+          { q: "Extrems absoluts de $f(x)=e^{-x}(x^2+3x+1)$ a $[-1,\\infty)$.", sol: "$f'=-e^{-x}(x+2)(x-1)$: creixent a $(-1,1)$, decreixent a $(1,\\infty)$, $f\\to0$ a $\\infty$. Màx absolut $f(1)=\\frac5e$; mín absolut $f(-1)=-e$." },
+          { q: "Conjunt $\\left|\\frac{x-1}{x+1}\\right|\\lt1$.", sol: "$|x-1|\\lt|x+1|\\iff(x-1)^2\\lt(x+1)^2\\iff4x>0\\iff x\\in(0,\\infty)$." }
+        ]
+      }
+    ]
+  },
+  {
     id: "2021",
     title: "Primer Parcial — 26 d'abril de 2021",
     tag: "FORMAT AMB TEST",
@@ -269,6 +303,23 @@ const REAL_EXAMS = [
     ]
   },
   {
+    id: "2020",
+    title: "Primer Parcial — 2020",
+    tag: "= LLISTA 3, PROBLEMA 2",
+    format: "Problema amb paràmetre, calcat d'una llista de classe.",
+    problems: [
+      {
+        title: "Problema 1",
+        statement: "$P(x)=\\dfrac{x^3}{3}+\\dfrac{3x^2}{2}-4x+A$, amb $A$ paràmetre.",
+        parts: [
+          { q: "(a) Creixement i decreixement. (b) Extrems relatius.", sol: "$P'=x^2+3x-4=(x+4)(x-1)$: creixent a $(-\\infty,-4)\\cup(1,\\infty)$, decreixent a $(-4,1)$. Màxim a $x=-4$: $P(-4)=A+\\frac{56}{3}$. Mínim a $x=1$: $P(1)=A-\\frac{13}{6}$." },
+          { q: "(c) Per a quins $A$ podem assegurar que $P(x)=0$ té almenys una solució a $(-\\infty,0)$?", sol: "A $(-\\infty,0)$, $P$ puja de $-\\infty$ fins a $A+\\frac{56}3$ (en $-4$) i baixa fins a $P(0)=A$. Hi ha zero (Bolzano) si $A+\\frac{56}{3}\\ge0$: $A\\ge-\\frac{56}{3}$." },
+          { q: "(d) Per a quins $A$ té una solució a $[1,\\infty)$?", sol: "A $[1,\\infty)$, $P$ creix de $A-\\frac{13}6$ a $+\\infty$: cal $A-\\frac{13}{6}\\le0$, és a dir $A\\le\\frac{13}{6}$." }
+        ]
+      }
+    ]
+  },
+  {
     id: "2018",
     title: "Primer Parcial — 13 d'abril de 2018",
     tag: "ANTIC",
@@ -289,26 +340,80 @@ const REAL_EXAMS = [
         ]
       }
     ]
+  },
+  {
+    id: "2019",
+    title: "Primer Parcial — 12 d'abril de 2019",
+    tag: "ANTIC",
+    format: "3 problemes (2+2+1.5) + test de 5 preguntes (+0.9 / −0.3). 1h50.",
+    problems: [
+      {
+        title: "Problemes",
+        parts: [
+          { q: "P1. Creixement i extrems de $f(x)=\\dfrac{x^3}{x^2-3}$.", sol: "$f'=\\dfrac{x^2(x^2-9)}{(x^2-3)^2}$. Crítics $0,\\pm3$. Creixent a $(-\\infty,-3)\\cup(3,\\infty)$; decreixent a $(-3,-\\sqrt3)\\cup(-\\sqrt3,\\sqrt3)\\cup(\\sqrt3,3)$. Màxim $(-3,-\\frac92)$, mínim $(3,\\frac92)$. En $x=0$ no hi ha extrem ($f'$ no canvia de signe)." },
+          { q: "P2. $\\displaystyle\\lim_{x\\to0^+}(1-\\cos x)^{\\sin x}$.", sol: "$0^0$: $e^{\\lim\\sin x\\ln(1-\\cos x)}$. $\\sin x\\sim x$ i $\\ln(1-\\cos x)\\sim\\ln\\frac{x^2}{2}$, i $x\\ln\\frac{x^2}2\\to0$ ⇒ $e^0=1$." },
+          { q: "P3. Concavitat i convexitat de $f(x)=x^4-5x^3+9x^2+6x-2$.", sol: "$f''=12x^2-30x+18=6(2x-3)(x-1)$: convexa a $(-\\infty,1)\\cup(\\frac32,\\infty)$, còncava a $(1,\\frac32)$. Inflexions a $x=1$ i $x=\\frac32$." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "R2019",
+    title: "Recuperació 1r Parcial — 25 de juny de 2019",
+    tag: "= LLISTA 3, 4(b)",
+    format: "3 problemes (2+1.5+2) + test.",
+    problems: [
+      {
+        title: "Problemes",
+        parts: [
+          { q: "P1. Creixement i extrems de $f(x)=\\dfrac{x^2+x}{x-1}$.", sol: "$f'=\\dfrac{x^2-2x-1}{(x-1)^2}=0\\Rightarrow x=1\\pm\\sqrt2$. Creixent a $(-\\infty,1-\\sqrt2)\\cup(1+\\sqrt2,\\infty)$, decreixent a $(1-\\sqrt2,1)\\cup(1,1+\\sqrt2)$. Màx a $1-\\sqrt2$ ($f=3-2\\sqrt2$), mín a $1+\\sqrt2$ ($f=3+2\\sqrt2$)." },
+          { q: "P2. Concavitat i convexitat de $f(x)=\\frac12x^4-2x^3-45x^2+31x-18$.", sol: "$f''=6x^2-12x-90=6(x-5)(x+3)$: convexa a $(-\\infty,-3)\\cup(5,\\infty)$, còncava a $(-3,5)$. Inflexions a $x=-3$ i $x=5$." },
+          { q: "P3. $\\displaystyle\\lim_{x\\to\\infty}\\left(1+\\frac1{x^2}\\right)^{2(x+1)^2}$.", sol: "$1^\\infty$: $e^{\\lim2(x+1)^2\\ln(1+\\frac1{x^2})}=e^{\\lim\\frac{2(x+1)^2}{x^2}}=e^2$." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "R2018",
+    title: "Recuperació 1r Parcial — 6 de juliol de 2018",
+    tag: "ANTIC",
+    format: "Test 5 preguntes (+0.6 / −0.2) + 4 problemes. 2 hores, sense calculadora.",
+    problems: [
+      {
+        title: "Problemes",
+        parts: [
+          { q: "P1. Creixement i extrems de $f(x)=\\dfrac{\\sqrt{x^4+4x^2+16}}{x}$.", sol: "$f'=\\dfrac{x^4-16}{x^2\\sqrt{x^4+4x^2+16}}$: creixent a $|x|>2$, decreixent a $(-2,0)\\cup(0,2)$. Màxim $(-2,-2\\sqrt3)$, mínim $(2,2\\sqrt3)$." },
+          { q: "P2. Totes les asímptotes de $g(x)=\\dfrac{3x^3+2x^2+1}{x^2-1}$.", sol: "<b>Trampa:</b> el numerador s'anul·la en $x=-1$: $3x^3+2x^2+1=(x+1)(3x^2-x+1)$, així que $g=\\frac{3x^2-x+1}{x-1}$ ($x\\neq-1$) i en $x=-1$ hi ha un forat, NO una asímptota. AV només $x=1$. AO: $\\frac{3x^2-x+1}{x-1}=3x+2+\\frac{3}{x-1}$ ⇒ $y=3x+2$." },
+          { q: "P3. $\\displaystyle\\lim_{x\\to0^+}(2x^3+5x)^{\\frac1{\\ln x}}$.", sol: "$0^0$: exponent $\\frac{\\ln(2x^3+5x)}{\\ln x}=\\frac{\\ln x+\\ln(2x^2+5)}{\\ln x}\\to1$ ⇒ $e^1=e$." },
+          { q: "P4. Resoleu $10^x-\\dfrac{16\\cdot5^{-x}}{2^x}=6$.", sol: "$\\frac{5^{-x}}{2^x}=10^{-x}$. Amb $t=10^x$: $t-\\frac{16}{t}=6\\Rightarrow t^2-6t-16=0\\Rightarrow t=8$ ($t=-2$ descartada). $x=\\log_{10}8=3\\log_{10}2$." },
+          { q: "Test: derivada de $e^{\\sqrt x}$; $\\lim_{x\\to\\infty}\\frac{\\ln x}{x}$; tangent a $12\\sqrt x$ en $(9,36)$.", sol: "$\\frac{e^{\\sqrt x}}{2\\sqrt x}$; $\\ 0$; $\\ f'(9)=\\frac{6}{\\sqrt9}=2$ ⇒ $y=2x+18$." }
+        ]
+      }
+    ]
   }
 ];
+
+const EXAM_ORDER = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "R2019", "2018", "R2018"];
+REAL_EXAMS.sort((a, b) => EXAM_ORDER.indexOf(a.id) - EXAM_ORDER.indexOf(b.id));
+const EXAM_BY_ID = id => REAL_EXAMS.find(e => e.id === id);
 
 /* ---------- Banc de preguntes de test en FORMAT 2025 (5 opcions) ---------- */
 const EXAM_TEST_BANK = [
   // Reals 2025 (la 3 corregida)
-  { src: "Parcial 2025", q: REAL_EXAMS[0].test[0].q, options: REAL_EXAMS[0].test[0].options, correct: 4, exp: REAL_EXAMS[0].test[0].exp },
-  { src: "Parcial 2025", q: REAL_EXAMS[0].test[1].q, options: REAL_EXAMS[0].test[1].options, correct: 1, exp: REAL_EXAMS[0].test[1].exp },
+  { src: "Parcial 2025", q: EXAM_BY_ID("2025").test[0].q, options: EXAM_BY_ID("2025").test[0].options, correct: 4, exp: EXAM_BY_ID("2025").test[0].exp },
+  { src: "Parcial 2025", q: EXAM_BY_ID("2025").test[1].q, options: EXAM_BY_ID("2025").test[1].options, correct: 1, exp: EXAM_BY_ID("2025").test[1].exp },
   { src: "Parcial 2025 (corregida)", q: "Polinomi d'interpolació que passa per $(1,2),\\ (2,3),\\ (4,7)$:", options: ["$P(x)=1+x$", "$P(x)=2+(x-1)$", "$P(x)=2x-1$", "$P(x)=\\frac13x^2+\\frac53$", "$P(x)=1+2x+x^2$"], correct: 3, exp: "$f[1,2]=1$, $f[2,4]=2$, $f[1,2,4]=\\frac13$: $P=2+(x-1)+\\frac13(x-1)(x-2)=\\frac{x^2}{3}+\\frac53$. (A l'examen real cap opció era correcta.)" },
-  { src: "Parcial 2025", q: REAL_EXAMS[0].test[3].q, options: REAL_EXAMS[0].test[3].options, correct: 4, exp: REAL_EXAMS[0].test[3].exp },
-  { src: "Parcial 2025", q: REAL_EXAMS[0].test[4].q, options: REAL_EXAMS[0].test[4].options, correct: 0, exp: REAL_EXAMS[0].test[4].exp },
+  { src: "Parcial 2025", q: EXAM_BY_ID("2025").test[3].q, options: EXAM_BY_ID("2025").test[3].options, correct: 4, exp: EXAM_BY_ID("2025").test[3].exp },
+  { src: "Parcial 2025", q: EXAM_BY_ID("2025").test[4].q, options: EXAM_BY_ID("2025").test[4].options, correct: 0, exp: EXAM_BY_ID("2025").test[4].exp },
   // Reals 2021 i 2018 amb una 5a opció afegida
-  { src: "Parcial 2021", q: REAL_EXAMS[3].test[0].q, options: REAL_EXAMS[3].test[0].options.concat(["$y=\\ln2$"]), correct: 1, exp: REAL_EXAMS[3].test[0].exp },
-  { src: "Parcial 2021", q: REAL_EXAMS[3].test[2].q, options: REAL_EXAMS[3].test[2].options.concat(["$x=-\\frac{8}{27}$"]), correct: 2, exp: REAL_EXAMS[3].test[2].exp },
-  { src: "Parcial 2021", q: REAL_EXAMS[3].test[3].q, options: REAL_EXAMS[3].test[3].options.concat(["$0$ és un màxim relatiu"]), correct: 2, exp: REAL_EXAMS[3].test[3].exp },
-  { src: "Parcial 2021", q: REAL_EXAMS[3].test[4].q, options: REAL_EXAMS[3].test[4].options.concat(["$[-2,-\\frac25]$"]), correct: 1, exp: REAL_EXAMS[3].test[4].exp },
-  { src: "Parcial 2018", q: REAL_EXAMS[4].test[0].q, options: REAL_EXAMS[4].test[0].options.concat(["Només $x=4$"]), correct: 0, exp: REAL_EXAMS[4].test[0].exp },
-  { src: "Parcial 2018", q: REAL_EXAMS[4].test[2].q, options: REAL_EXAMS[4].test[2].options.concat(["No es pot dir res"]), correct: 0, exp: REAL_EXAMS[4].test[2].exp },
-  { src: "Parcial 2018", q: REAL_EXAMS[4].test[3].q, options: REAL_EXAMS[4].test[3].options.concat(["No existeix"]), correct: 0, exp: REAL_EXAMS[4].test[3].exp },
-  { src: "Parcial 2018", q: REAL_EXAMS[4].test[4].q, options: REAL_EXAMS[4].test[4].options.concat(["$y=x-e+1$"]), correct: 0, exp: REAL_EXAMS[4].test[4].exp },
+  { src: "Parcial 2021", q: EXAM_BY_ID("2021").test[0].q, options: EXAM_BY_ID("2021").test[0].options.concat(["$y=\\ln2$"]), correct: 1, exp: EXAM_BY_ID("2021").test[0].exp },
+  { src: "Parcial 2021", q: EXAM_BY_ID("2021").test[2].q, options: EXAM_BY_ID("2021").test[2].options.concat(["$x=-\\frac{8}{27}$"]), correct: 2, exp: EXAM_BY_ID("2021").test[2].exp },
+  { src: "Parcial 2021", q: EXAM_BY_ID("2021").test[3].q, options: EXAM_BY_ID("2021").test[3].options.concat(["$0$ és un màxim relatiu"]), correct: 2, exp: EXAM_BY_ID("2021").test[3].exp },
+  { src: "Parcial 2021", q: EXAM_BY_ID("2021").test[4].q, options: EXAM_BY_ID("2021").test[4].options.concat(["$[-2,-\\frac25]$"]), correct: 1, exp: EXAM_BY_ID("2021").test[4].exp },
+  { src: "Parcial 2018", q: EXAM_BY_ID("2018").test[0].q, options: EXAM_BY_ID("2018").test[0].options.concat(["Només $x=4$"]), correct: 0, exp: EXAM_BY_ID("2018").test[0].exp },
+  { src: "Parcial 2018", q: EXAM_BY_ID("2018").test[2].q, options: EXAM_BY_ID("2018").test[2].options.concat(["No es pot dir res"]), correct: 0, exp: EXAM_BY_ID("2018").test[2].exp },
+  { src: "Parcial 2018", q: EXAM_BY_ID("2018").test[3].q, options: EXAM_BY_ID("2018").test[3].options.concat(["No existeix"]), correct: 0, exp: EXAM_BY_ID("2018").test[3].exp },
+  { src: "Parcial 2018", q: EXAM_BY_ID("2018").test[4].q, options: EXAM_BY_ID("2018").test[4].options.concat(["$y=x-e+1$"]), correct: 0, exp: EXAM_BY_ID("2018").test[4].exp },
   // Noves, imitant l'estil 2025
   { src: "Estil 2025", q: "Sigui $f(x)=\\dfrac{1-\\cos x}{x^2}$ si $x\\neq0$ i $f(0)=k$. Per a quin $k$ és contínua en $0$?", options: ["$k=0$", "$k=1$", "$k=\\frac12$", "$k=2$", "No és possible"], correct: 2, exp: "$1-\\cos x\\sim\\frac{x^2}{2}$, el límit és $\\frac12$." },
   { src: "Estil 2025", q: "Sigui $f(x)=\\dfrac{200}{1+e^{-2(x-3)}}$. On té el punt d'inflexió?", options: ["$x=0$", "$x=2$", "$x=3$", "$x=100$", "No en té"], correct: 2, exp: "Logística: la inflexió és on l'exponent s'anul·la, $x=3$ (allà $f=100$, la meitat de 200)." },
@@ -326,49 +431,4 @@ const EXAM_TEST_BANK = [
   { src: "Estil 2025", q: "Si $f'(a)=0$ i $f''(a)\\lt0$, llavors en $x=a$:", options: ["Hi ha un mínim relatiu", "Hi ha un màxim relatiu", "Hi ha un punt d'inflexió", "$f$ no és derivable", "No es pot dir res"], correct: 1, exp: "Criteri de la segona derivada: $f''(a)\\lt0$ (còncava) amb $f'(a)=0$ ⇒ màxim relatiu." },
   { src: "Estil 2025", q: "$\\displaystyle\\lim_{x\\to\\infty}\\left(\\frac{x+3}{x+1}\\right)^{x}$ val:", options: ["$1$", "$e$", "$e^2$", "$e^3$", "$\\infty$"], correct: 2, exp: "$1^\\infty$: $x\\ln\\frac{x+3}{x+1}=x\\ln\\left(1+\\frac{2}{x+1}\\right)\\to2$." },
   { src: "Estil 2025", q: "La solució de $x^2-3x\\lt 4$ és:", options: ["$(-1,4)$", "$(-4,1)$", "$(-\\infty,-1)\\cup(4,\\infty)$", "$(1,4)$", "$\\mathbb{R}$"], correct: 0, exp: "$x^2-3x-4=(x-4)(x+1)\\lt0\\iff -1\\lt x\\lt4$." }
-];
-
-/* ---------- Llista 4 (Hoja4) — problemes resolts ---------- */
-const LLISTA4 = [
-  {
-    title: "1(a) $f(x)=\\dfrac{x^2+8}{x+1}$",
-    sol: "$f(x)=x-1+\\frac{9}{x+1}$. AV $x=-1$, AO $y=x-1$. $f'=1-\\frac{9}{(x+1)^2}=0\\Rightarrow x=2,\\ x=-4$. Creixent a $(-\\infty,-4)\\cup(2,\\infty)$, decreixent a $(-4,-1)\\cup(-1,2)$. Màx $(-4,-8)$, mín $(2,4)$. $f''=\\frac{18}{(x+1)^3}$: còncava a $x\\lt-1$, convexa a $x>-1$, sense inflexió." +
-      "<div class='plot' data-f='(x^2+8)/(x+1)' data-xr='-10,8' data-yr='-25,20' data-va='-1' data-lines='x-1' data-pts='-4,-8;2,4'></div>"
-  },
-  {
-    title: "1(b) $f(x)=\\dfrac{x^2+12}{x-2}$",
-    sol: "$f(x)=x+2+\\frac{16}{x-2}$. AV $x=2$, AO $y=x+2$. $f'=1-\\frac{16}{(x-2)^2}=0\\Rightarrow x=6,\\ x=-2$. Màx $(-2,-4)$, mín $(6,12)$. $f''=\\frac{32}{(x-2)^3}$: còncava a $x\\lt2$, convexa a $x>2$." +
-      "<div class='plot' data-f='(x^2+12)/(x-2)' data-xr='-10,14' data-yr='-25,30' data-va='2' data-lines='x+2' data-pts='-2,-4;6,12'></div>"
-  },
-  {
-    title: "1(c) $f(x)=\\dfrac{5-3x^2}{1-x^2}$",
-    sol: "$f(x)=3+\\frac{2}{1-x^2}$. AV $x=\\pm1$, AH $y=3$. $f'=\\frac{4x}{(1-x^2)^2}$: decreixent a $x\\lt0$, creixent a $x>0$ (fora de $\\pm1$). Mínim relatiu $(0,5)$. $f''=\\frac{4(1+3x^2)}{(1-x^2)^3}$: convexa a $(-1,1)$, còncava a $|x|>1$. Simètrica (parell)." +
-      "<div class='plot' data-f='(5-3*x^2)/(1-x^2)' data-xr='-4,4' data-yr='-8,14' data-va='-1,1' data-lines='3' data-pts='0,5'></div>"
-  },
-  {
-    title: "1(f) $f(x)=\\dfrac{e^{-x}}{x-3}$ (molt semblant a l'examen d'Abril 2024)",
-    sol: "$f'=\\frac{-e^{-x}(x-2)}{(x-3)^2}$: creixent a $(-\\infty,2)$, decreixent a $(2,3)\\cup(3,\\infty)$. Màxim relatiu $(2,-e^{-2})$. $f''=\\frac{e^{-x}((x-3)^2+2(x-3)+2)}{(x-3)^3}$ i el parèntesi és sempre $>0$: còncava a $x\\lt3$, convexa a $x>3$. AV $x=3$, AH $y=0$ a $+\\infty$." +
-      "<div class='plot' data-f='exp(-x)/(x-3)' data-xr='-2,7' data-yr='-3,2' data-va='3' data-lines='0' data-pts='2,-0.1353'></div>"
-  },
-  {
-    title: "4. Límits amb l'Hôpital",
-    sol: "• $\\lim_{x\\to1}\\left(\\frac1{\\ln x}-\\frac1{x-1}\\right)=\\lim\\frac{x-1-\\ln x}{(x-1)\\ln x}\\overset{H}{=}\\lim\\frac{1-1/x}{\\ln x+1-1/x}\\overset{H}{=}\\frac{1/x^2}{1/x+1/x^2}\\to\\frac12$.<br>" +
-      "• $\\lim_{x\\to0}\\frac{x}{\\arctan4x}=\\frac14$.<br>" +
-      "• $\\lim_{x\\to\\infty}(xe^{1/x}-x)=\\lim\\frac{e^{1/x}-1}{1/x}=1$.<br>" +
-      "• $\\lim_{x\\to0^+}(\\tan2x)^x=e^{\\lim x\\ln\\tan2x}=e^0=1$.<br>" +
-      "• $\\lim_{x\\to\\infty}\\left(\\frac{x}{1+x}\\right)^x=e^{-1}$.<br>" +
-      "• $\\lim_{x\\to\\pi/2}\\frac{\\tan x}{\\sec^2x}=\\lim\\sin x\\cos x=0$.<br>" +
-      "• $\\lim_{x\\to0}\\frac{1-\\cos x}{x\\tan x}=\\frac12$."
-  },
-  {
-    title: "5. Límits exponencials ($0^0$, $\\infty^0$, $1^\\infty$)",
-    sol: "(a) $\\lim_{x\\to0^+}x^{2x}=e^{\\lim2x\\ln x}=e^0=1$.<br>(b) $\\lim_{x\\to\\infty}x^{1/x}=e^{\\lim\\frac{\\ln x}{x}}=1$.<br>(c) $\\lim_{x\\to0^+}x^{\\sin x}=e^{\\lim\\sin x\\ln x}=1$.<br>" +
-      "(d) $\\lim_{x\\to\\infty}\\left(\\frac{1+5x}{3+5x}\\right)^{2x-1}=e^{\\lim(2x-1)\\cdot\\frac{-2}{3+5x}}=e^{-4/5}$.<br>" +
-      "(e) $\\lim_{x\\to0^+}(1+\\sin4x)^{\\cot x}=e^{\\lim\\frac{\\ln(1+\\sin4x)}{\\tan x}}=e^4$.<br>" +
-      "(f) $\\lim_{x\\to1}(2-x)^{\\tan(\\pi x/2)}=e^{\\lim\\frac{\\ln(2-x)}{\\cot(\\pi x/2)}}\\overset{H}{=}e^{\\lim\\frac{-1/(2-x)}{-\\frac\\pi2\\csc^2(\\pi x/2)}}=e^{2/\\pi}$."
-  },
-  {
-    title: "6. Per a quins $a$ i $b$: $\\displaystyle\\lim_{x\\to0}\\left(\\frac{\\sin2x}{x^3}+a+\\frac{b}{x^2}\\right)=0$?",
-    sol: "Taylor: $\\sin2x=2x-\\frac{8x^3}{6}+O(x^5)$, així que $\\frac{\\sin2x}{x^3}=\\frac{2}{x^2}-\\frac43+O(x^2)$. L'expressió és $\\frac{2+b}{x^2}+a-\\frac43+O(x^2)$. Cal $b=-2$ (si no, divergeix) i $a=\\frac43$."
-  }
 ];

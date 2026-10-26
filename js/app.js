@@ -123,13 +123,21 @@
     window.scrollTo({ top: 0 });
   }
   tabButtons.forEach(btn => btn.addEventListener("click", () => openTab(btn.dataset.tab)));
-  document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => {
+  // Enllaços interns: data-goto="pestanya" (+ data-cat / data-exam / data-list)
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-goto]");
+    if (!b) return;
     openTab(b.dataset.goto);
     if (b.dataset.cat) {
       const chip = document.querySelector(`#exerciseCategoryRow .chip[data-cat="${b.dataset.cat}"]`);
       if (chip) chip.click();
     }
-  }));
+    if (b.dataset.list && window.showClassList) window.showClassList(b.dataset.list);
+    if (b.dataset.exam) {
+      const card = document.getElementById("exam-" + b.dataset.exam);
+      if (card) setTimeout(() => card.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    }
+  });
 
   /* ---------------- Teoria: render KaTeX + cerca ---------------- */
   renderMath(document.getElementById("theoryAccordion"));
@@ -154,6 +162,7 @@
   const CAT_LABELS = {
     functionStudy: "Estudi de funció (tipus 2025)",
     taylorProblem: "Taylor + fita (tipus 2025)",
+    taylorDegree: "Taylor amb error < 10^-k (Llista 5)",
     absExtrema: "Extrems absoluts [a,b]",
     continuity: "Continuïtat amb paràmetre k",
     expQuadratic: "Equacions exponencials (e^4x...)",
@@ -237,7 +246,8 @@
     absExtrema: Gen.absExtrema,
     functionStudy: Gen.functionStudy,
     taylorProblem: Gen.taylorProblem,
-    powLimit: Gen.powLimit
+    powLimit: Gen.powLimit,
+    taylorDegree: Gen.taylorDegree
   };
 
   const exercisePanel = document.getElementById("exercisePanel");
@@ -478,7 +488,7 @@
     return wrap;
   }
   REAL_EXAMS.forEach(ex => {
-    const chip = el("button", "chip" + (ex.hot ? " hot" : ""), ex.id);
+    const chip = el("button", "chip" + (ex.hot ? " hot" : ""), ex.id.replace(/^R/, "Recu "));
     chip.addEventListener("click", () => {
       document.getElementById("exam-" + ex.id).scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -508,7 +518,7 @@
     renderMath(card);
   });
 
-  /* ---------------- Problemes resolts + Llista 4 ---------------- */
+  /* ---------------- Problemes resolts ---------------- */
   const solvedList = document.getElementById("solvedProblemsList");
   SOLVED_PROBLEMS.forEach((p, i) => {
     const card = el("div", "card solved-item");
@@ -518,14 +528,159 @@
     solvedList.appendChild(card);
     renderMath(card);
   });
-  const llistaList = document.getElementById("llista4List");
-  LLISTA4.forEach(p => {
-    const card = el("div", "card solved-item");
-    card.appendChild(el("h4", null, p.title));
-    card.appendChild(solutionToggle(p.sol, "👁️ Mostra la solució"));
-    llistaList.appendChild(card);
-    renderMath(card);
+
+  /* ---------------- Llistes de classe (Llista 0–5) ---------------- */
+  const DONE_KEY = "calculParcialLlistes_v1";
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(DONE_KEY)) || {}; } catch (e) { done = {}; }
+  function saveDone() { try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch (e) { /* ignore */ } }
+
+  const listsNav = document.getElementById("classListsNav");
+  const listsContainer = document.getElementById("classListsContainer");
+  const listMeters = {};
+  function updateMeter(list) {
+    const n = list.items.filter(it => done[list.id + ":" + it.n]).length;
+    const pct = Math.round(100 * n / list.items.length);
+    listMeters[list.id].forEach(m => {
+      m.querySelector(".lm-text").textContent = `${n}/${list.items.length} fets`;
+      m.querySelector(".progress-bar-fill").style.width = pct + "%";
+    });
+  }
+  function showList(id) {
+    listsNav.querySelectorAll(".list-chip").forEach(c => c.classList.toggle("active", c.dataset.id === id));
+    listsContainer.querySelectorAll(".class-list").forEach(c => c.style.display = c.dataset.id === id ? "block" : "none");
+    const visible = listsContainer.querySelector(`.class-list[data-id="${id}"]`);
+    if (visible && !visible.dataset.rendered) { renderMath(visible); visible.dataset.rendered = "1"; }
+  }
+  CLASS_LISTS.forEach(list => {
+    const meter = () => el("div", "list-meter", `<span class="lm-text"></span><div class="progress-bar"><div class="progress-bar-fill"></div></div>`);
+    const chip = el("button", "list-chip" + (list.latest ? " hot" : ""),
+      `<b>${list.short}</b><span class="stars">${"★".repeat(list.stars)}${"☆".repeat(3 - list.stars)}</span>`);
+    chip.dataset.id = list.id;
+    const chipMeter = meter();
+    chip.appendChild(chipMeter);
+    chip.addEventListener("click", () => showList(list.id));
+    listsNav.appendChild(chip);
+
+    const sec = el("div", "class-list");
+    sec.dataset.id = list.id;
+    const head = el("div", "card list-head" + (list.latest ? " hot" : ""));
+    head.appendChild(el("div", "exam-head", `<h3>${list.title}</h3>${list.latest ? '<span class="exam-tag hot">LA MÉS NOVA</span>' : ""}`));
+    head.appendChild(el("p", null, `<b>Temari:</b> ${list.topic}`));
+    head.appendChild(el("p", "list-exam-link", `🎯 <b>Com surt a l'examen:</b> ${list.exam}`));
+    const headMeter = meter();
+    head.appendChild(headMeter);
+    sec.appendChild(head);
+    listMeters[list.id] = [chipMeter, headMeter];
+
+    list.items.forEach(it => {
+      const key = list.id + ":" + it.n;
+      const card = el("div", "card list-item" + (done[key] ? " done" : ""));
+      const top = el("div", "list-item-top");
+      top.appendChild(el("span", "list-num", it.n));
+      const cb = el("label", "done-toggle", `<input type="checkbox"${done[key] ? " checked" : ""}> fet`);
+      cb.querySelector("input").addEventListener("change", e => {
+        if (e.target.checked) done[key] = true; else delete done[key];
+        card.classList.toggle("done", e.target.checked);
+        saveDone();
+        updateMeter(list);
+      });
+      top.appendChild(cb);
+      card.appendChild(top);
+      card.appendChild(el("div", "list-q", it.q));
+      if (it.check) {
+        const row = el("div", "exercise-inputs list-check");
+        const wrap = el("label", "field-wrap");
+        wrap.appendChild(el("span", "field-label", it.check.label));
+        const input = el("input", "input-field");
+        input.autocomplete = "off";
+        input.placeholder = "comprova el teu resultat";
+        wrap.appendChild(input);
+        row.appendChild(wrap);
+        const btn = el("button", "btn-secondary btn-small", "Comprova");
+        const fb = el("span", "list-fb");
+        const run = () => {
+          const v = input.value.trim();
+          if (!v) return;
+          const tol = it.check.tol !== undefined ? it.check.tol : Math.max(1e-3, Math.abs(it.check.value) * 0.005);
+          const r = MathParser.checkNumber(v, it.check.value, { tol });
+          input.classList.toggle("ok", r.ok); input.classList.toggle("bad", !r.ok);
+          fb.textContent = r.ok ? "✅ Correcte" : (r.error ? "⚠️ " + r.error : "❌ Torna-hi");
+          fb.className = "list-fb " + (r.ok ? "good" : "bad");
+        };
+        btn.addEventListener("click", run);
+        input.addEventListener("keydown", e => { if (e.key === "Enter") run(); });
+        row.appendChild(btn);
+        row.appendChild(fb);
+        card.appendChild(row);
+      }
+      card.appendChild(solutionToggle(it.sol));
+      sec.appendChild(card);
+    });
+    listsContainer.appendChild(sec);
+    updateMeter(list);
   });
+  showList(CLASS_LISTS[0].id);
+  window.showClassList = showList;
+
+
+  /* ---------------- Pla de 3 dies (llista prioritzada) ---------------- */
+  const PLAN_KEY = "calculParcialPla_v1";
+  let planDone = {};
+  try { planDone = JSON.parse(localStorage.getItem(PLAN_KEY)) || {}; } catch (e) { planDone = {}; }
+  const linkBtns = links => links.map(k =>
+    `<button class="link-chip" data-goto="${k.goto}"${k.cat ? ` data-cat="${k.cat}"` : ""}${k.exam ? ` data-exam="${k.exam}"` : ""}${k.list ? ` data-list="${k.list}"` : ""}>${k.l} →</button>`).join("");
+
+  const rankBody = document.getElementById("rankingBody");
+  TOPIC_RANKING.forEach((r, i) => {
+    const tr = el("tr", "tier-" + r.tier);
+    const dots = EXAM_COLS.map(c => `<span class="dot${r.seen.includes(c) ? " on" : ""}" title="${c.replace(/^R/, "Recu ")}"></span>`).join("");
+    tr.innerHTML = `<td class="rank-n">${i + 1}</td><td><span class="tier-badge t${r.tier}">${r.tier}</span></td>
+      <td><b>${r.topic}</b><div class="muted small">${r.why}</div><div class="link-row">${linkBtns(r.links)}</div></td>
+      <td class="dots-cell"><div class="dots">${dots}</div><div class="small muted">${r.seen.length}/10</div></td>
+      <td class="small">${r.lists}</td><td class="small">${r.weight}</td>`;
+    rankBody.appendChild(tr);
+  });
+  document.getElementById("rankingHead").innerHTML = EXAM_COLS.map(c => `<span>${c.replace(/^R20/, "R").replace(/^20/, "")}</span>`).join("");
+
+  const daysWrap = document.getElementById("planDays");
+  const planMeter = document.getElementById("planMeter");
+  function updatePlanMeter() {
+    const all = PLAN_DAYS.flatMap(d => d.tasks);
+    const n = all.filter(t => planDone[t.id]).length;
+    planMeter.querySelector(".lm-text").textContent = `${n} / ${all.length} tasques fetes`;
+    planMeter.querySelector(".progress-bar-fill").style.width = Math.round(100 * n / all.length) + "%";
+    daysWrap.querySelectorAll(".day-card").forEach((c, i) => {
+      const ts = PLAN_DAYS[i].tasks, k = ts.filter(t => planDone[t.id]).length;
+      c.querySelector(".day-count").textContent = `${k}/${ts.length}`;
+      c.classList.toggle("complete", k === ts.length);
+    });
+  }
+  PLAN_DAYS.forEach(d => {
+    const total = d.tasks.reduce((a, t) => a + parseInt(t.h, 10), 0);
+    const card = el("div", "card day-card");
+    card.appendChild(el("div", "day-head", `<div><span class="day-label">${d.day}</span><h3>${d.title}</h3></div><span class="day-count"></span>`));
+    card.appendChild(el("p", "muted small", `🎯 ${d.goal} · ≈ ${Math.round(total / 6) / 10} h`));
+    d.tasks.forEach(t => {
+      const row = el("div", "plan-task" + (planDone[t.id] ? " done" : ""));
+      row.innerHTML = `<label class="plan-check"><input type="checkbox"${planDone[t.id] ? " checked" : ""}></label>
+        <div class="plan-body"><div><span class="plan-time">${t.h}</span> ${t.t}</div><div class="link-row">${linkBtns(t.links)}</div></div>`;
+      row.querySelector("input").addEventListener("change", e => {
+        if (e.target.checked) planDone[t.id] = true; else delete planDone[t.id];
+        row.classList.toggle("done", e.target.checked);
+        try { localStorage.setItem(PLAN_KEY, JSON.stringify(planDone)); } catch (err) { /* ignore */ }
+        updatePlanMeter();
+      });
+      card.appendChild(row);
+    });
+    daysWrap.appendChild(card);
+  });
+  const tplWrap = document.getElementById("planTemplates");
+  TEMPLATES.forEach(tp => tplWrap.appendChild(el("details", "theory-block", `<summary>${tp.t}</summary><div class="theory-content">${tp.b}</div>`)));
+  const errList = document.getElementById("planErrors");
+  COMMON_ERRORS.forEach(x => errList.appendChild(el("li", null, x)));
+  updatePlanMeter();
+  renderMath(document.getElementById("tab-pla"));
 
   /* ---------------- Simulacre d'examen (format 2025) ---------------- */
   const startExamBtn = document.getElementById("startExamBtn");
